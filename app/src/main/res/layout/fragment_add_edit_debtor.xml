@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddEditDebtorFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/debtor_name_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:hint="Enter name here..."
+        android:inputType="text"
+        android:textAppearance="@android:style/TextAppearance.Large" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/debtor_tel_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone number here..."
+        android:inputType="phone"
+        android:textAppearance="@android:style/TextAppearance.Large" />
+
+
+</LinearLayout>
