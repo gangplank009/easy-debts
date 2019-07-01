@@ -29,16 +29,19 @@ abstract class AppDatabase: RoomDatabase() {
                     AppDatabase::class.java, "app_db")
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
-                            Executors.newSingleThreadExecutor().execute {
-                                getInstance(context).debtorDao().apply {
-                                    this.insert(Debtor(1, "Pavel", "+77777777"))
-                                    this.insert(Debtor(2, "Max", "+88888888"))
-                                    this.insert(Debtor(3, "Dan", "+9999999"))
-                                }
-                            }
+                            populateCallback(context)
                         }
                     }).build()
                 return INSTANCE!!
+            }
+        }
+
+        private fun populateCallback(context: Context) {
+            Executors.newSingleThreadExecutor().execute {
+                val dao = getInstance(context).debtorDao()
+                dao.insert(Debtor( "Pavel", "+79890001111"))
+                dao.insert(Debtor( "Pavel", "+79890002222"))
+                dao.insert(Debtor( "Pavel", "+79890003333"))
             }
         }
     }

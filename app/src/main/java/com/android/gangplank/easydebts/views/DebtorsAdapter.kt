@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.widget.ImageViewCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debtor
@@ -40,4 +42,36 @@ class DebtorsAdapter: RecyclerView.Adapter<DebtorsAdapter.DebtorsHolder>() {
         allDebtors = debtors
         notifyDataSetChanged()
     }
+
+    fun getDebtorAt(position: Int): Debtor {
+        return allDebtors!![position]
+    }
+}
+
+class MyAdapter(diffCallback: DiffUtil.ItemCallback<Debtor>) :
+    ListAdapter<Debtor, MyAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    
+
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Debtor>() {
+        override fun areItemsTheSame(oldItem: Debtor, newItem: Debtor): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun areContentsTheSame(oldItem: Debtor, newItem: Debtor): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+    }
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

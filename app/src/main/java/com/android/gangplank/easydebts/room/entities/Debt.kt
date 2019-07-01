@@ -15,11 +15,14 @@ import java.util.*
 data class Debt(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Long,
+    var id: Long,
+
     @ColumnInfo(name = "debtor_id", index = true)
-    val debtorId: Long,
+    var debtorId: Long,
+
     @ColumnInfo(name = "debt_value")
-    val value: Long,
+    var value: Long,
+
     @ColumnInfo(name = "debt_start_date")
-    val startDate: Date
+    var startDate: Date
 )

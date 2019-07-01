@@ -10,8 +10,6 @@ import androidx.navigation.ui.NavigationUI
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedViewModel: DebtorsViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,6 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp()
     }
 }

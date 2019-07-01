@@ -8,20 +8,24 @@
     <fragment
         android:id="@+id/debtorsFragment"
         android:name="com.android.gangplank.easydebts.fragments.DebtorsFragment"
-        android:label="fragment_debtors"
-        tools:layout="@layout/fragment_debtors" >
+        android:label="Debtors"
+        tools:layout="@layout/fragment_debtors">
         <action
             android:id="@+id/action_debtorsFragment_to_debtsFragment"
             app:destination="@id/debtsFragment" />
         <action
             android:id="@+id/action_debtorsFragment_to_addEditDebtorFragment"
-            app:destination="@id/addEditDebtorFragment" />
+            app:destination="@id/addEditDebtorFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
     <fragment
         android:id="@+id/debtsFragment"
         android:name="com.android.gangplank.easydebts.fragments.DebtsFragment"
-        android:label="fragment_debts"
-        tools:layout="@layout/fragment_debts" >
+        android:label="Debts of debtor"
+        tools:layout="@layout/fragment_debts">
         <action
             android:id="@+id/action_debtsFragment_to_addEditDebtFragment"
             app:destination="@id/addEditDebtFragment" />
@@ -29,11 +33,11 @@
     <fragment
         android:id="@+id/addEditDebtFragment"
         android:name="com.android.gangplank.easydebts.fragments.AddEditDebtFragment"
-        android:label="fragment_add_edit_debt"
+        android:label="Edit debt"
         tools:layout="@layout/fragment_add_edit_debt" />
     <fragment
         android:id="@+id/addEditDebtorFragment"
         android:name="com.android.gangplank.easydebts.fragments.AddEditDebtorFragment"
-        android:label="fragment_add_edit_debtor"
+        android:label="Edit debtor"
         tools:layout="@layout/fragment_add_edit_debtor" />
 </navigation>

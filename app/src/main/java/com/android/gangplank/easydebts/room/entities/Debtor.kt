@@ -6,16 +6,17 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "debtor_table")
 data class Debtor(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Long,
-
     @ColumnInfo(name = "debtor_name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "debtor_tel_number")
-    val telNumber: String,
+    var telNumber: String,
 
     @ColumnInfo(name = "debtor_avatar", typeAffinity = ColumnInfo.BLOB)
-    val avatar: ByteArray? = null
+    var avatar: ByteArray? = null,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long = 0
+
 )
