@@ -31,7 +31,9 @@ abstract class AppDatabase: RoomDatabase() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             populateCallback(context)
                         }
-                    }).build()
+                    })
+                    .fallbackToDestructiveMigration()
+                    .build()
                 return INSTANCE!!
             }
         }

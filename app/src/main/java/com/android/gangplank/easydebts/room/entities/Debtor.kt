@@ -13,7 +13,7 @@ data class Debtor(
     var telNumber: String,
 
     @ColumnInfo(name = "debtor_avatar", typeAffinity = ColumnInfo.BLOB)
-    var avatar: ByteArray? = null,
+    var avatar: ByteArray? = byteArrayOf(0),
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

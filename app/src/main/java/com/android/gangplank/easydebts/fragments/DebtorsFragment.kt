@@ -3,10 +3,10 @@ package com.android.gangplank.easydebts.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +15,9 @@ import com.android.gangplank.easydebts.DebtorsViewModel
 import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debtor
 import com.android.gangplank.easydebts.views.DebtorsAdapter
+import com.android.gangplank.easydebts.views.RecyclerItemClickListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class DebtorsFragment : Fragment() {
 
@@ -34,6 +36,20 @@ class DebtorsFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         rvAdapter = DebtorsAdapter()
         recyclerView.adapter = rvAdapter
+        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this.context!!, recyclerView,
+            object : RecyclerItemClickListener.OnItemCLickListener {
+                override fun onItemClick(debtor: Debtor, positionInAdapter: Int) {
+                    Toast.makeText(context, "Click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
+                    sharedViewModel.clickedDebtor.value = debtor
+                }
+
+                override fun onItemLongClick(debtor: Debtor, positionInAdapter: Int) {
+                    Toast.makeText(context, "Long click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
+                    sharedViewModel.clickedDebtor.value = debtor
+                    view.findNavController().navigate(DebtorsFragmentDirections.actionDebtorsFragmentToAddEditDebtorFragment())
+                }
+
+            }))
 
         val simpleItemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -50,8 +66,11 @@ class DebtorsFragment : Fragment() {
                 if ((direction == ItemTouchHelper.LEFT) or (direction == ItemTouchHelper.RIGHT)) {
                     val swipedDebtor = rvAdapter.getDebtorAt(position)
                     sharedViewModel.deleteDebtor(swipedDebtor)
-                //    rvAdapter.notifyItemRemoved(position)
-                //    rvAdapter.notifyItemRangeChanged(position, rvAdapter.itemCount)
+                    Snackbar.make(view, "${swipedDebtor.name} deleted. Undo delete?", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO") {
+                            sharedViewModel.insertDebtor(swipedDebtor)
+                        }
+                        .show()
                 }
             }
         }
@@ -71,7 +90,9 @@ class DebtorsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         sharedViewModel = ViewModelProviders.of(activity!!).get(DebtorsViewModel::class.java)
         sharedViewModel.allDebtors.observe(this, Observer { debtors: List<Debtor> ->
-            debtors.let { rvAdapter.setDebtors(it) }
+            debtors.let {
+                rvAdapter.submitList(it)
+            }
         })
     }
 

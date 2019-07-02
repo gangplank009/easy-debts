@@ -3,6 +3,7 @@ package com.android.gangplank.easydebts
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.android.gangplank.easydebts.room.entities.Debt
 import com.android.gangplank.easydebts.room.entities.Debtor
@@ -14,10 +15,14 @@ class DebtorsViewModel(application: Application) : AndroidViewModel(application)
     private val appRepository: AppRepository = AppRepository(application)
     val allDebtors: LiveData<List<Debtor>>
     val allDebts: LiveData<List<Debt>>
+    var clickedDebtor: MutableLiveData<Debtor?>
+    var clickedDebt: MutableLiveData<Debt?>
 
     init {
         allDebtors = appRepository.allDebtors
         allDebts = appRepository.allDebts
+        clickedDebtor = MutableLiveData()
+        clickedDebt = MutableLiveData()
     }
 
     fun insertDebtor(debtor: Debtor) {

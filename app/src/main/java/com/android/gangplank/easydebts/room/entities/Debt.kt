@@ -24,5 +24,8 @@ data class Debt(
     var value: Long,
 
     @ColumnInfo(name = "debt_start_date")
-    var startDate: Date
+    var startDate: Date,
+
+    @ColumnInfo(name = "debt_checked")
+    var state: Boolean = false
 )
