@@ -16,6 +16,7 @@ import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debtor
 import com.android.gangplank.easydebts.views.DebtorsAdapter
 import com.android.gangplank.easydebts.views.RecyclerItemClickListener
+import com.android.gangplank.easydebts.views.RecyclerItemSwipeCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -37,48 +38,37 @@ class DebtorsFragment : Fragment() {
         rvAdapter = DebtorsAdapter()
         recyclerView.adapter = rvAdapter
         recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this.context!!, recyclerView,
-            object : RecyclerItemClickListener.OnItemCLickListener {
-                override fun onItemClick(debtor: Debtor, positionInAdapter: Int) {
+            object : RecyclerItemClickListener.OnItemClickListener<Debtor> {
+                override fun onItemClick(item: Debtor, positionInAdapter: Int) {
                     Toast.makeText(context, "Click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
-                    sharedViewModel.clickedDebtor.value = debtor
+                    sharedViewModel.clickedDebtor.value = item
+                    view.findNavController().navigate(DebtorsFragmentDirections.actionDebtorsFragmentToDebtsFragment())
                 }
 
-                override fun onItemLongClick(debtor: Debtor, positionInAdapter: Int) {
+                override fun onItemLongClick(item: Debtor, positionInAdapter: Int) {
                     Toast.makeText(context, "Long click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
-                    sharedViewModel.clickedDebtor.value = debtor
+                    sharedViewModel.clickedDebtor.value = item
                     view.findNavController().navigate(DebtorsFragmentDirections.actionDebtorsFragmentToAddEditDebtorFragment())
                 }
 
             }))
 
-        val simpleItemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
+        val itemSwipeHelper = ItemTouchHelper(RecyclerItemSwipeCallback<Debtor>(recyclerView, object :
+            RecyclerItemSwipeCallback.OnItemSwipeListener<Debtor> {
+            override fun onItemSwipe(item: Debtor, positionInAdapter: Int) {
+                sharedViewModel.deleteDebtor(item)
+                 Snackbar.make(view, "${item.name} deleted. Undo delete?", Snackbar.LENGTH_LONG)
+                    .setAction("UNDO") {
+                        sharedViewModel.insertDebtor(item)
+                    }
+                    .show()
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+        }, 0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT))
+        itemSwipeHelper.attachToRecyclerView(recyclerView)
 
-                if ((direction == ItemTouchHelper.LEFT) or (direction == ItemTouchHelper.RIGHT)) {
-                    val swipedDebtor = rvAdapter.getDebtorAt(position)
-                    sharedViewModel.deleteDebtor(swipedDebtor)
-                    Snackbar.make(view, "${swipedDebtor.name} deleted. Undo delete?", Snackbar.LENGTH_LONG)
-                        .setAction("UNDO") {
-                            sharedViewModel.insertDebtor(swipedDebtor)
-                        }
-                        .show()
-                }
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(simpleItemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-
-        val fab = view.findViewById<FloatingActionButton>(R.id.add_debtor_fab)
-        fab.setOnClickListener { view: View? ->
+        val addDebtorFab = view.findViewById<FloatingActionButton>(R.id.add_debtor_fab)
+        addDebtorFab.setOnClickListener { view: View? ->
             view?.findNavController()?.navigate(
                 DebtorsFragmentDirections.actionDebtorsFragmentToAddEditDebtorFragment())
 
@@ -94,6 +84,7 @@ class DebtorsFragment : Fragment() {
                 rvAdapter.submitList(it)
             }
         })
+        sharedViewModel.clickedDebtor.value = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

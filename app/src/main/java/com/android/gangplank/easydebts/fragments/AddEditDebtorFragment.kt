@@ -54,6 +54,7 @@ class AddEditDebtorFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        sharedViewModel.clickedDebtor.value = null
         if (sharedViewModel.clickedDebtor.hasObservers())
             sharedViewModel.clickedDebtor.removeObservers(this)
     }

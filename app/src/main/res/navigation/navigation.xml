@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/debtorsFragment"
         android:name="com.android.gangplank.easydebts.fragments.DebtorsFragment"
-        android:label="Debtors"
+        android:label="All debtors"
         tools:layout="@layout/fragment_debtors">
         <action
             android:id="@+id/action_debtorsFragment_to_debtsFragment"
@@ -19,7 +19,7 @@
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_right" >
+            app:popExitAnim="@anim/slide_right">
             <argument
                 android:name="debtor_id"
                 android:defaultValue="-1L" />
@@ -37,16 +37,16 @@
     <fragment
         android:id="@+id/addEditDebtFragment"
         android:name="com.android.gangplank.easydebts.fragments.AddEditDebtFragment"
-        android:label="Edit debt"
+        android:label="Add/Edit debt"
         tools:layout="@layout/fragment_add_edit_debt" />
     <fragment
         android:id="@+id/addEditDebtorFragment"
         android:name="com.android.gangplank.easydebts.fragments.AddEditDebtorFragment"
-        android:label="Edit debtor"
-        tools:layout="@layout/fragment_add_edit_debtor" >
+        android:label="Add/Edit debtor"
+        tools:layout="@layout/fragment_add_edit_debtor">
         <argument
             android:name="debtor_id"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            app:argType="long" />
     </fragment>
 </navigation>

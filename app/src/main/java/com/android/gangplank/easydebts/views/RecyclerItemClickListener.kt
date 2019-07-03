@@ -3,19 +3,18 @@ package com.android.gangplank.easydebts.views
 import android.content.Context
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.View
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gangplank.easydebts.room.entities.Debtor
 
-class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView,
-                                      private val listener: OnItemCLickListener?) : RecyclerView.OnItemTouchListener {
+@Suppress("UNCHECKED_CAST")
+class RecyclerItemClickListener <T> (context: Context, recyclerView: RecyclerView,
+                                   private val listener: OnItemClickListener <T>?) : RecyclerView.OnItemTouchListener {
     private val gestureDetector: GestureDetector
 
-    interface OnItemCLickListener {
-        fun onItemClick(debtor: Debtor, positionInAdapter: Int)
+    interface OnItemClickListener <T> {
+        fun onItemClick(item: T, positionInAdapter: Int)
 
-        fun onItemLongClick(debtor: Debtor, positionInAdapter: Int)
+        fun onItemLongClick(item: T, positionInAdapter: Int)
     }
 
     init {
@@ -24,15 +23,14 @@ class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView,
                 override fun onSingleTapUp(e: MotionEvent?): Boolean {
                     return true
                 }
-
                 override fun onLongPress(e: MotionEvent?) {
                     e ?: return
                     val childView = recyclerView.findChildViewUnder(e.x, e.y)
                     if (childView != null && listener != null) {
                         val listAdapter = recyclerView.adapter as DebtorsAdapter
                         val positionInAdapter = recyclerView.getChildAdapterPosition(childView)
-                        val debtor = listAdapter.getDebtorAt(positionInAdapter)
-                        listener.onItemLongClick(debtor, positionInAdapter)
+                        val item  = listAdapter.getDebtorAt(positionInAdapter)
+                        listener.onItemLongClick(item as T, positionInAdapter)
                     }
                 }
             })
@@ -47,8 +45,8 @@ class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView,
         if (childView != null && listener != null && gestureDetector.onTouchEvent(e)) {
             val listAdapter = recyclerView.adapter as DebtorsAdapter
             val positionInAdapter = recyclerView.getChildAdapterPosition(childView)
-            val debtor = listAdapter.getDebtorAt(positionInAdapter)
-            listener.onItemClick(debtor, positionInAdapter)
+            val item = listAdapter.getDebtorAt(positionInAdapter)
+            listener.onItemClick(item as T, positionInAdapter)
         }
         return false
     }
