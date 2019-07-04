@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
 @Entity(tableName = "debtor_table")
 data class Debtor(
     @ColumnInfo(name = "debtor_name")

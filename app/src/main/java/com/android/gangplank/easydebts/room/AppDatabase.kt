@@ -13,7 +13,6 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 @Database(entities = arrayOf(Debtor::class, Debt::class), version = 1)
-@TypeConverters(value = [Converters::class])
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun debtorDao(): DebtorDao

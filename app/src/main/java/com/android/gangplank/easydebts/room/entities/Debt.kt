@@ -13,10 +13,6 @@ import java.util.*
             childColumns = arrayOf("debtor_id"),
             onDelete = ForeignKey.CASCADE)))
 data class Debt(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long,
-
     @ColumnInfo(name = "debtor_id", index = true)
     var debtorId: Long,
 
@@ -24,8 +20,12 @@ data class Debt(
     var value: Long,
 
     @ColumnInfo(name = "debt_start_date")
-    var startDate: Date,
+    var startDate: String,
 
     @ColumnInfo(name = "debt_checked")
-    var state: Boolean = false
+    var state: Boolean = false,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long = 0
 )

@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_debtors">
         <action
             android:id="@+id/action_debtorsFragment_to_debtsFragment"
-            app:destination="@id/debtsFragment" />
+            app:destination="@id/debtsFragment"
+            app:enterAnim="@anim/slide_from_bottom"
+            app:exitAnim="@anim/slide_top"
+            app:popEnterAnim="@anim/slide_from_top"
+            app:popExitAnim="@anim/slide_bottom" />
         <action
             android:id="@+id/action_debtorsFragment_to_addEditDebtorFragment"
             app:destination="@id/addEditDebtorFragment"
@@ -32,7 +36,11 @@
         tools:layout="@layout/fragment_debts">
         <action
             android:id="@+id/action_debtsFragment_to_addEditDebtFragment"
-            app:destination="@id/addEditDebtFragment" />
+            app:destination="@id/addEditDebtFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
     <fragment
         android:id="@+id/addEditDebtFragment"

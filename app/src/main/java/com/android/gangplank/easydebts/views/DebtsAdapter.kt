@@ -19,10 +19,10 @@ class DebtsAdapter: ListAdapter<Debt, DebtsAdapter.DebtsHolder>(DebtDiffCallback
 
     inner class DebtsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val debtValueTv: TextView = itemView.findViewById(R.id.debt_value_text)
-        val debtStatusSwitch: Switch = itemView.findViewById(R.id.debt_status_switch)
-        val debtDateTv: TextView = itemView.findViewById(R.id.debt_start_date_text)
-        val debtSmsBtn = itemView.findViewById<ImageButton>(R.id.debt_sms_img_btn)
+        val debtValueTv: TextView = itemView.findViewById(R.id.debt_item_value_label)
+        val debtStatusSwitch: Switch = itemView.findViewById(R.id.debt_item_status_switch)
+        val debtDateTv: TextView = itemView.findViewById(R.id.debt_item_start_date_label)
+        val debtSmsBtn = itemView.findViewById<ImageButton>(R.id.debt_item_sms_img_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtsHolder {
@@ -35,18 +35,13 @@ class DebtsAdapter: ListAdapter<Debt, DebtsAdapter.DebtsHolder>(DebtDiffCallback
         holder.apply {
             this.debtValueTv.text = debt.value.toString()
             this.debtStatusSwitch.isChecked = debt.state
-            this.debtDateTv.text = formatDate(debt.startDate)
+            this.debtDateTv.text = debt.startDate
         }
     }
 
    fun getDebtAt(position: Int): Debt {
        return getItem(position)
    }
-
-    fun formatDate(date: Date): String {
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return simpleDateFormat.format(date)
-    }
 }
 
 class DebtDiffCallback : DiffUtil.ItemCallback<Debt>() {

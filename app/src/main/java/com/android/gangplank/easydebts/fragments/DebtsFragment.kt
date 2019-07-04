@@ -40,18 +40,18 @@ class DebtsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_debts, container, false)
         setHasOptionsMenu(true)
 
-        debtorNameTv = view.findViewById(R.id.debt_debtor_name)
-        debtorPhoneTv = view.findViewById<TextView>(R.id.debt_debtor_phone_number)
+        debtorNameTv = view.findViewById(R.id.debt_debtor_name_label)
+        debtorPhoneTv = view.findViewById(R.id.debt_debtor_phone_number_label)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.debt_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.setHasFixedSize(true)
         rvAdapter = DebtsAdapter()
         recyclerView.adapter = rvAdapter
-        recyclerView.addOnItemTouchListener(RecyclerItemClickListener<Debt>(this.context!!, recyclerView,
+        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this.context!!, recyclerView,
             object : RecyclerItemClickListener.OnItemClickListener<Debt>{
                 override fun onItemClick(item: Debt, positionInAdapter: Int) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    Toast.makeText(context, "Click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onItemLongClick(item: Debt, positionInAdapter: Int) {

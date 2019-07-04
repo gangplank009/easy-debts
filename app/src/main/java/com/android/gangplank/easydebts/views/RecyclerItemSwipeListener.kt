@@ -1,5 +1,6 @@
 package com.android.gangplank.easydebts.views
 
+import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,9 +27,18 @@ class RecyclerItemSwipeCallback<T>(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         if ((direction == ItemTouchHelper.LEFT) or (direction == ItemTouchHelper.RIGHT)) {
             val adapterPosition = viewHolder.adapterPosition
-            val adapter = recyclerView.adapter as DebtorsAdapter
-            val debtor = adapter.getDebtorAt(adapterPosition)
-            listener?.onItemSwipe(debtor as T, adapterPosition)
+            val listAdapter = recyclerView.adapter
+            when (listAdapter) {
+                is DebtorsAdapter -> {
+                    val item = listAdapter.getDebtorAt(adapterPosition)
+                    listener?.onItemSwipe(item as T, adapterPosition)
+                }
+                is DebtsAdapter -> {
+                    val item = listAdapter.getDebtAt(adapterPosition)
+                    listener?.onItemSwipe(item as T, adapterPosition)
+                }
+                else -> Toast.makeText(recyclerView.context, "Invalid rv adapter swipe", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

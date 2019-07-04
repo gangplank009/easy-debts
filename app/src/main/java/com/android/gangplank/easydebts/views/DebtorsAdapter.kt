@@ -13,9 +13,9 @@ class DebtorsAdapter: ListAdapter<Debtor, DebtorsAdapter.DebtorsHolder>(DebtorDi
 
     inner class DebtorsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val debtorImage = itemView.findViewById<ImageView>(R.id.debtor_image_view)
-        val debtorName = itemView.findViewById<TextView>(R.id.debtor_name_text)
-        val debtorPhoneNumber = itemView.findViewById<TextView>(R.id.debtor_phone_number_text)
+        val debtorImage = itemView.findViewById<ImageView>(R.id.debtor_item_image_view)
+        val debtorName = itemView.findViewById<TextView>(R.id.debtor_item_name_label)
+        val debtorPhoneNumber = itemView.findViewById<TextView>(R.id.debtor_item_phone_number_label)
 
     }
 

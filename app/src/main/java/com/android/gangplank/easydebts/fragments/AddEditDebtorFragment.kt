@@ -2,13 +2,16 @@ package com.android.gangplank.easydebts.fragments
 
 
 import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -33,8 +36,8 @@ class AddEditDebtorFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add_edit_debtor, container, false)
         setHasOptionsMenu(true)
 
-        nameEditText = view.findViewById(R.id.debtor_name_text)
-        phoneEditText = view.findViewById(R.id.debtor_phone_number_text)
+        nameEditText = view.findViewById(R.id.debtor_name_edit_text)
+        phoneEditText = view.findViewById(R.id.debtor_phone_number_edit_text)
         return view
     }
 
@@ -61,6 +64,7 @@ class AddEditDebtorFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.add_edit_debtor_menu, menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -81,7 +85,6 @@ class AddEditDebtorFragment : Fragment() {
                         sharedViewModel.insertDebtor(newDebtor)
                         Toast.makeText(context, "Debtor added", Toast.LENGTH_SHORT).show()
                     }
-
                 } else {
                     Toast.makeText(context, "Fill all text fields", Toast.LENGTH_SHORT).show()
                 }

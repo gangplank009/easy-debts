@@ -13,33 +13,36 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/debt_value_text"
+            android:id="@+id/debt_item_value_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="VALUE VALUE"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/debt_start_date_text"
+            android:id="@+id/debt_item_start_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
+            android:textStyle="italic"
+            android:textSize="16sp"
             android:text="DATE:DATE:DATE"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/debt_value_text" />
+            app:layout_constraintTop_toBottomOf="@+id/debt_item_value_label" />
 
         <Switch
-            android:id="@+id/debt_status_switch"
+            android:id="@+id/debt_item_status_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
@@ -47,13 +50,12 @@
             android:switchPadding="16dp"
             android:text="Status:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintBottom_toBottomOf="@+id/debt_start_date_text"
-            app:layout_constraintEnd_toStartOf="@+id/debt_sms_img_btn"
-            app:layout_constraintStart_toEndOf="@+id/debt_start_date_text"
-            app:layout_constraintTop_toTopOf="@+id/debt_value_text" />
+            app:layout_constraintBottom_toBottomOf="@+id/debt_item_start_date_label"
+            app:layout_constraintEnd_toStartOf="@+id/debt_item_sms_img_btn"
+            app:layout_constraintTop_toTopOf="@+id/debt_item_value_label" />
 
         <ImageButton
-            android:id="@+id/debt_sms_img_btn"
+            android:id="@+id/debt_item_sms_img_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="8dp"
