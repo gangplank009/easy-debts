@@ -17,6 +17,7 @@ import com.android.gangplank.easydebts.room.entities.Debtor
 import com.android.gangplank.easydebts.views.DebtorsAdapter
 import com.android.gangplank.easydebts.views.RecyclerItemClickListener
 import com.android.gangplank.easydebts.views.RecyclerItemSwipeCallback
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -39,13 +40,13 @@ class DebtorsFragment : Fragment() {
         recyclerView.adapter = rvAdapter
         recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this.context!!, recyclerView,
             object : RecyclerItemClickListener.OnItemClickListener<Debtor> {
-                override fun onItemClick(item: Debtor, positionInAdapter: Int) {
+                override fun onItemClick(item: Debtor, view: View, positionInAdapter: Int) {
                     Toast.makeText(context, "Click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
                     sharedViewModel.clickedDebtor.value = item
                     view.findNavController().navigate(DebtorsFragmentDirections.actionDebtorsFragmentToDebtsFragment())
                 }
 
-                override fun onItemLongClick(item: Debtor, positionInAdapter: Int) {
+                override fun onItemLongClick(item: Debtor, view: View, positionInAdapter: Int) {
                     Toast.makeText(context, "Long click. Position = $positionInAdapter", Toast.LENGTH_SHORT).show()
                     sharedViewModel.clickedDebtor.value = item
                     view.findNavController().navigate(DebtorsFragmentDirections.actionDebtorsFragmentToAddEditDebtorFragment())

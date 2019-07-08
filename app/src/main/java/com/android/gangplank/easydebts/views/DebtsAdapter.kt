@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debt
 import com.android.gangplank.easydebts.room.entities.Debtor
+import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,7 +23,7 @@ class DebtsAdapter: ListAdapter<Debt, DebtsAdapter.DebtsHolder>(DebtDiffCallback
         val debtValueTv: TextView = itemView.findViewById(R.id.debt_item_value_label)
         val debtStatusSwitch: Switch = itemView.findViewById(R.id.debt_item_status_switch)
         val debtDateTv: TextView = itemView.findViewById(R.id.debt_item_start_date_label)
-        val debtSmsBtn = itemView.findViewById<ImageButton>(R.id.debt_item_sms_img_btn)
+        val debtSmsBtn = itemView.findViewById<MaterialButton>(R.id.debt_item_sms_img_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtsHolder {
@@ -37,6 +38,7 @@ class DebtsAdapter: ListAdapter<Debt, DebtsAdapter.DebtsHolder>(DebtDiffCallback
             this.debtStatusSwitch.isChecked = debt.state
             this.debtDateTv.text = debt.startDate
         }
+
     }
 
    fun getDebtAt(position: Int): Debt {

@@ -1,6 +1,9 @@
 package com.android.gangplank.easydebts.fragments
 
 
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.gangplank.easydebts.DebtorsViewModel
 import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debt
+import com.google.android.material.button.MaterialButton
 import java.time.LocalDate
 import java.util.*
 
@@ -27,6 +31,7 @@ class AddEditDebtFragment : Fragment() {
     private lateinit var sharedViewModel: DebtorsViewModel
     private lateinit var valueEditText: EditText
     private lateinit var datePicker: DatePicker
+    private lateinit var debtSaveState: MaterialButton
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -38,10 +43,11 @@ class AddEditDebtFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add_edit_debt, container, false)
         valueEditText = view.findViewById(R.id.debt_value_edit_text)
         datePicker = view.findViewById(R.id.debt_datepicker)
+        debtSaveState = view.findViewById(R.id.debt_save_state)
+        debtSaveState.visibility = View.GONE
 
         val currentDate = LocalDate.now()
         datePicker.updateDate(currentDate.year, currentDate.monthValue - 1, currentDate.dayOfMonth)
-
         return view
     }
 
@@ -90,10 +96,22 @@ class AddEditDebtFragment : Fragment() {
                             this.startDate = date
                         }
                         sharedViewModel.updateDebt(editDebt)
+                        debtSaveState.apply {
+                            this.icon = resources.getDrawable(R.drawable.ic_update, null)
+                            this.text = "Updated"
+                            this.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.updateDebtDebtor))
+                            this.visibility = View.VISIBLE
+                        }
                         Toast.makeText(context, "Debt edited", Toast.LENGTH_SHORT).show()
                     } else {
                         val newDebt = Debt(debtorId, value, date, false)
                         sharedViewModel.insertDebt(newDebt)
+                        debtSaveState.apply {
+                            this.icon = resources.getDrawable(R.drawable.ic_add, null)
+                            this.text = "Added"
+                            this.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.addDebtDebtor))
+                            this.visibility = View.VISIBLE
+                        }
                         Toast.makeText(context, "Debt added", Toast.LENGTH_SHORT).show()
                     }
                 } else {

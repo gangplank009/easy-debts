@@ -2,6 +2,7 @@ package com.android.gangplank.easydebts.fragments
 
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.media.Image
 import android.os.Bundle
 import android.text.Editable
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.gangplank.easydebts.DebtorsViewModel
 import com.android.gangplank.easydebts.R
 import com.android.gangplank.easydebts.room.entities.Debtor
+import com.google.android.material.button.MaterialButton
 
 class AddEditDebtorFragment : Fragment() {
 
@@ -27,6 +29,7 @@ class AddEditDebtorFragment : Fragment() {
     private lateinit var sharedViewModel: DebtorsViewModel
     private lateinit var nameEditText: EditText
     private lateinit var phoneEditText: EditText
+    private lateinit var debtorSaveState: MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,9 @@ class AddEditDebtorFragment : Fragment() {
 
         nameEditText = view.findViewById(R.id.debtor_name_edit_text)
         phoneEditText = view.findViewById(R.id.debtor_phone_number_edit_text)
+        debtorSaveState = view.findViewById(R.id.debtor_save_state)
+        debtorSaveState.visibility = View.GONE
+
         return view
     }
 
@@ -79,10 +85,22 @@ class AddEditDebtorFragment : Fragment() {
                             this.telNumber = phone
                         }
                         sharedViewModel.updateDebtor(editDebtor)
+                        debtorSaveState.apply {
+                            this.icon = resources.getDrawable(R.drawable.ic_update, null)
+                            this.text = "Updated"
+                            this.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.updateDebtDebtor))
+                            this.visibility = View.VISIBLE
+                        }
                         Toast.makeText(context, "Debtor edited", Toast.LENGTH_SHORT).show()
                     } else {
                         val newDebtor = Debtor(name, phone)
                         sharedViewModel.insertDebtor(newDebtor)
+                        debtorSaveState.apply {
+                            this.icon = resources.getDrawable(R.drawable.ic_add, null)
+                            this.text = "Added"
+                            this.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.addDebtDebtor))
+                            this.visibility = View.VISIBLE
+                        }
                         Toast.makeText(context, "Debtor added", Toast.LENGTH_SHORT).show()
                     }
                 } else {

@@ -12,38 +12,52 @@
 
         <TextView
             android:id="@+id/debt_debtor_name_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
             android:text="DEBTOR:NAME"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toStartOf="@+id/debt_call_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/debt_debtor_phone_number_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="DEBTOR:PHONE"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toStartOf="@+id/debt_call_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/debt_debtor_name_label" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/debt_call_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/holo_green_light"
-            android:src="@drawable/ic_call"
+            android:lines="2"
+            android:text="Call"
+            android:textColor="@android:color/black"
+            app:backgroundTint="@android:color/holo_green_light"
+            android:maxWidth="125dp"
+            app:cornerRadius="32dp"
+            app:icon="@drawable/ic_call"
+            app:iconTint="@android:color/black"
+            app:rippleColor="@android:color/holo_green_dark"
             app:layout_constraintBottom_toTopOf="@+id/debt_recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/debt_recycler_view"

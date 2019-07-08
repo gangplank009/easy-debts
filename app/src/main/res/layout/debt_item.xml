@@ -20,8 +20,8 @@
             android:layout_marginTop="8dp"
             android:text="VALUE VALUE"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,10 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:textStyle="italic"
-            android:textSize="16sp"
             android:text="DATE:DATE:DATE"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/debt_item_value_label" />
@@ -43,29 +43,35 @@
             android:id="@+id/debt_item_status_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:switchMinWidth="48dp"
-            android:switchPadding="16dp"
+            android:switchPadding="8dp"
             android:text="Status:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintBottom_toBottomOf="@+id/debt_item_start_date_label"
             app:layout_constraintEnd_toStartOf="@+id/debt_item_sms_img_btn"
+            app:layout_constraintStart_toEndOf="@+id/debt_item_value_label"
             app:layout_constraintTop_toTopOf="@+id/debt_item_value_label" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/debt_item_sms_img_btn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/holo_orange_light"
-            android:src="@drawable/ic_sms"
+            android:text="SMS"
+            app:rippleColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/black"
+            app:backgroundTint="@android:color/holo_orange_light"
+            app:cornerRadius="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
